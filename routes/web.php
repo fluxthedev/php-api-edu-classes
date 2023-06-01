@@ -17,5 +17,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
   $router->get('resources',  ['uses' => 'ResourcesController@showAllResources']);
   $router->get('resources/{id}', ['uses' => 'ResourcesController@showOneResource']);
 
+  $router->get('users',  ['uses' => 'UserController@showAllUsers']);
+  $router->get('users/{id}', ['uses' => 'UserController@showOneUser']);
+
   // Add routes for creating, updating, and deleting resources as needed
 });
