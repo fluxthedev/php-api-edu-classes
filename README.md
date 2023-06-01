@@ -100,3 +100,5 @@ QUEUE_CONNECTION=sync
 
 ## Hitting the API
 The resources api has the following path: `/api/resources` to view all the resources. You can also use `/api/resources/{id}` to access a specific resource (e.g. `/api/resources/1`.
+
+The users api has the following path: `/api/users` to view all users. You can also use `/api/users/{id}` to access a specific user (e.g. `/api/users/1`.
