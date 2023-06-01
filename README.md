@@ -48,6 +48,24 @@ INSERT INTO resources (title, short_description, cost, grade_span, tags)
 ~~~~
 
 6. Confirm data has been added by running: `SELECT * FROM resources;`
+7. Now we will create a table for users and populate it with some mock users.
+~~~~sql
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    role ENUM('Teacher', 'Student', 'Admin')
+);
+~~~~
+8. And fill in the table
+~~~~sql
+INSERT INTO users (first_name, last_name, role)
+VALUES ('John', 'Doe', 'Teacher'),
+       ('Jane', 'Doe', 'Student'),
+       ('Jim', 'Smith', 'Teacher'),
+       ('Jack', 'Johnson', 'Student'),
+       ('Admin', 'User', 'Admin');
+~~~~
 
 ## Create and edit the .env file
 1. Run the following command in the root of the repository to create a .env file: `touch .env`
