@@ -20,14 +20,28 @@ class UserController extends Controller
 
   public function create(Request $request)
   {
+    $this->validate($request, [
+      'first_name' => 'required|max:255',
+      'last_name' => 'required|max:255',
+      'role' => 'required|in:Teacher,Student,Admin',
+    ]);
+
     $user = User::create($request->all());
+
     return response()->json($user, 201);
   }
 
   public function update($id, Request $request)
   {
+    $this->validate($request, [
+      'first_name' => 'required|max:255',
+      'last_name' => 'required|max:255',
+      'role' => 'required|in:Teacher,Student,Admin',
+    ]);
+
     $user = User::findOrFail($id);
     $user->update($request->all());
+
     return response()->json($user, 200);
   }
 
