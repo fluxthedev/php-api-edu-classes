@@ -26,6 +26,7 @@ class ResourcesController extends Controller
       'cost' => 'required|numeric|min:0.01|max:99.99',
       'grade_span' => 'required',
       'tags' => 'required',
+      'image' => 'sometimes|image|mimes:jpeg,png,jpg|max:2048',
     ]);
 
     $resource = Resources::create($request->all());
@@ -41,6 +42,7 @@ class ResourcesController extends Controller
       'cost' => 'required|numeric|min:0.01|max:99.99',
       'grade_span' => 'required',
       'tags' => 'required',
+      'image' => 'sometimes',
     ]);
 
     $resource = Resources::findOrFail($id);
