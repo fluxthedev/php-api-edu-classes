@@ -1,9 +1,11 @@
 # Setup
 
-## Prerequisites
+## Backend / API
+
+### Prerequisites
 You need to have Composer, php, and mySQL installed locally. Make sure you start at the mySQL console using `mysql -u root -p`. You will need to have the root mysql password.
 
-## Create the database and fill it with courses
+### Create the database and fill it with courses
 1. Run `CREATE DATABASE education;`
 2. Run `USE education;`
 3. Run 
@@ -67,7 +69,7 @@ VALUES ('John', 'Doe', 'Teacher'),
        ('Admin', 'User', 'Admin');
 ~~~~
 
-## Create and edit the .env file
+### Create and edit the .env file
 1. Run the following command in the root of the repository to create a .env file: `touch .env`
 2. Open the .env file and add the following: 
 ~~~~
@@ -94,11 +96,23 @@ QUEUE_CONNECTION=sync
 ~~~~
 3. Uncomment the DB_PASSWORD line and add your root mysql password.
 
-## Installing dependencies and running server
+### Installing dependencies and running server
 1. Run `composer install`
 2. Run `php -S localhost:8000 -t public` to start the server.
 
-## Hitting the API
+### Hitting the API
 The resources api has the following path: `/api/resources` to view all the resources. You can also use `/api/resources/{id}` to access a specific resource (e.g. `/api/resources/1`.
 
-The users api has the following path: `/api/users` to view all users. You can also use `/api/users/{id}` to access a specific user (e.g. `/api/users/1`.
+The users api has the following path: `/api/users` to view all users. You can also use `/api/users/{id}` to access a specific user (e.g. `/api/users/1`).
+
+## Frontend (React) setup
+
+1. CD into `edu-app` and run `npm install`. 
+2. Run the app with `npm start` (You will also need to run this command in a separate terminal window inside of `/API`: `php -S localhost:8000 -t public`
+3. When going to [https](http://localhost:3000/), you should see the resources page with a login button and resource data laid out.
+
+
+<img width="1680" alt="Screenshot 2023-06-06 at 10 37 39 AM" src="https://github.com/fluxthedev/php-api-edu-classes/assets/11892382/c0f4e5a6-b243-4c12-aed5-699a06475c57">
+
+
+
