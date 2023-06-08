@@ -1,21 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import LoginButton from './login-button';
 import './App.css';
 import CardWithStats from './components/CardWithStats';
-import { Container } from '@mantine/core';
 
 function App() {
   const [resources, setResources] = useState([]);
+  const [token, setToken] = useState('');
 
   useEffect(() => {
+    // Fetch the token from backend first
     axios
-      .get('http://localhost:8000/api/resources', {
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
+      .get('http://localhost:8000/api/getAuthToken')
+      .then((response) => {
+        const fetchedToken = response.data.access_token; // adjust this if the token is located at a different response path
+        setToken(fetchedToken);
+
+        // Then fetch the resources using the token as Authorization
+        axios
+          .get('http://localhost:8000/api/resources', {
+            headers: {
+              Authorization: `Bearer ${fetchedToken}`,
+            },
+          })
+          .then((res) => setResources(res.data))
+          .catch((err) => console.error(err));
       })
-      .then((res) => setResources(res.data))
       .catch((err) => console.error(err));
   }, []);
 
