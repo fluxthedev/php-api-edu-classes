@@ -23,8 +23,6 @@ $router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($ro
   $router->get('users/{id}', ['uses' => 'UserController@showOneUser']);
   $router->put('users/{id}', ['uses' => 'UserController@update']);
   $router->delete('users/{id}', ['uses' => 'UserController@delete']);
-
-  // Add routes for creating, updating, and deleting resources as needed
 });
 
 $router->post('api/resources', [
@@ -36,3 +34,18 @@ $router->post('api/users', [
   'middleware' => 'auth:create:user',
   'uses' => 'UserController@create'
 ]);
+
+$router->get('api/getAuthToken', function () {
+  $client = new GuzzleHttp\Client();
+
+  $res = $client->post('https://dev-42py737q1seq232l.us.auth0.com/oauth/token', [
+    'json' => [
+      'client_id' => env('AUTH0_CLIENT_ID'),
+      'client_secret' => env('AUTH0_CLIENT_SECRET'),
+      'audience' => env('AUTH0_AUD'),
+      'grant_type' => 'client_credentials'
+    ]
+  ]);
+
+  return response()->json(json_decode((string) $res->getBody(), true));
+});
