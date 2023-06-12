@@ -1,50 +1,61 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+// Libraries
+
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Link,
+} from 'react-router-dom';
+import { AppShell, Navbar, Header, NavLink } from '@mantine/core';
+import { Auth0Provider } from '@auth0/auth0-react';
+
+// Components
+import Users from './views/Users';
+import Resources from './views/Resources';
+
+// Styles
 import './App.css';
-import CardWithStats from './components/CardWithStats';
 
 function App() {
-  const [resources, setResources] = useState([]);
-  const [token, setToken] = useState('');
-
-  useEffect(() => {
-    // Fetch the token from backend first
-    axios
-      .get('http://localhost:8000/api/getAuthToken')
-      .then((response) => {
-        const fetchedToken = response.data.access_token; // adjust this if the token is located at a different response path
-        setToken(fetchedToken);
-
-        // Then fetch the resources using the token as Authorization
-        axios
-          .get('http://localhost:8000/api/resources', {
-            headers: {
-              Authorization: `Bearer ${fetchedToken}`,
-            },
-          })
-          .then((res) => setResources(res.data))
-          .catch((err) => console.error(err));
-      })
-      .catch((err) => console.error(err));
-  }, []);
-
   return (
-    <>
-      <header>
-        <h1>Resources</h1>
-      </header>
-      <main className="cards">
-        {resources.map((resource) => (
-          <CardWithStats
-            className="card"
-            key={resource.id}
-            image={resource.image}
-            title={resource.title}
-            description={resource.short_description}
-          />
-        ))}
-      </main>
-    </>
+    <Router>
+      <AppShell
+        padding="md"
+        navbar={
+          <Navbar width={{ base: 300 }} height={500} p="xs">
+            <NavLink label="First parent link" childrenOffset={28}>
+              <NavLink label="First child link" />
+              <NavLink label="Second child link" />
+              <NavLink label="Nested parent link" childrenOffset={28}>
+                <NavLink label="First child link" />
+                <NavLink label="Second child link" />
+                <NavLink label="Third child link" />
+              </NavLink>
+            </NavLink>
+          </Navbar>
+        }
+        header={
+          <Header height={60} p="xs">
+            {/* Header content */}
+          </Header>
+        }
+        styles={(theme) => ({
+          main: {
+            backgroundColor:
+              theme.colorScheme === 'dark'
+                ? theme.colors.dark[8]
+                : theme.colors.gray[0],
+          },
+        })}
+      >
+        <Auth0Provider>
+          <Routes>
+            <Route path="/" exact component={Resources} />
+            <Route path="/users" component={Users} />
+          </Routes>
+        </Auth0Provider>
+      </AppShell>
+    </Router>
   );
 }
 
