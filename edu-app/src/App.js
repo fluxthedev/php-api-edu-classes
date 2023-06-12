@@ -6,7 +6,7 @@ import {
   Routes,
   Link,
 } from 'react-router-dom';
-import { AppShell, Navbar, Header, NavLink } from '@mantine/core';
+import { AppShell, Navbar, Header } from '@mantine/core';
 import { Auth0Provider } from '@auth0/auth0-react';
 
 // Components
@@ -23,15 +23,8 @@ function App() {
         padding="md"
         navbar={
           <Navbar width={{ base: 300 }} height={500} p="xs">
-            <NavLink label="First parent link" childrenOffset={28}>
-              <NavLink label="First child link" />
-              <NavLink label="Second child link" />
-              <NavLink label="Nested parent link" childrenOffset={28}>
-                <NavLink label="First child link" />
-                <NavLink label="Second child link" />
-                <NavLink label="Third child link" />
-              </NavLink>
-            </NavLink>
+            <Link to="/">Resources</Link>
+            <Link to="/users">Users</Link>
           </Navbar>
         }
         header={
@@ -50,8 +43,8 @@ function App() {
       >
         <Auth0Provider>
           <Routes>
-            <Route path="/" exact component={Resources} />
-            <Route path="/users" component={Users} />
+            <Route path="/" element={<Resources />} />
+            <Route path="/users" element={<Users />} />
           </Routes>
         </Auth0Provider>
       </AppShell>
